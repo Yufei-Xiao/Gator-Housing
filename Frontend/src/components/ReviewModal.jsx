@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 
-const ReviewModal=({apartments,onClose,onSubmit})=>{
+const ReviewModal=({apartments,setUpdatedApartment,onClose,onSubmit})=>{
     //get the id of the apartment and create a newReview object to pass in the onSubmit function
-    const [selectedApartment,setSelectedApartment]=useState("");
+    const [selectedApartment,setSelectedApartment]=useState("");//string 
     const [reviewer,setReviewer]=useState("");
     const [rating,setRating]=useState();
     const [comment,setComment]=useState("");
@@ -15,6 +15,7 @@ const ReviewModal=({apartments,onClose,onSubmit})=>{
     useEffect(()=>{
         try{
             const apartment=apartments.find(a=>a.name===selectedApartment);
+            setUpdatedApartment(apartment);
             const newReview={"apartment_id":apartment.id,"reviewer":reviewer,"rating":rating,"comment":comment};
             setReview(newReview);
         }catch(error){

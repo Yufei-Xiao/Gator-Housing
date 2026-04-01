@@ -16,8 +16,9 @@ const App=()=>{
   const [bedFilter,setBedFilter]=useState("All");
   const [maxPrice,setMaxPrice]=useState(2000);
   const [filteredApartments,setFilteredApartments]=useState([]);
-  const [selectedApartment,setSelectedApartment]=useState(null);
-  const [selectedReview,setSelectedReview]=useState(false);
+  const [selectedApartment,setSelectedApartment]=useState(null);// selected apartment object
+  const [updatedApartment,setUpdatedApartment]=useState({})//updated apartment object(empty at first)
+  const [selectedReview,setSelectedReview]=useState(false); //submit review button pressed or not
   const [reviewAdded,setReviewAdded]=useState(false);
   const handleSubmitReview=(newReview)=>{
     reviewService.create(newReview)
@@ -25,10 +26,11 @@ const App=()=>{
         setReviews(reviews.concat(response))
         setReviewAdded(true)
       })
+      .then(()=>apartmentService.update(updatedApartment.id,{...updatedApartment,"reviews":updatedApartment.reviews+1}))
       .catch(error=>{
         console.log("Error submitting a review",error)
       })
-
+    
   }
   useEffect(()=>{
     apartmentService.getAll()
@@ -60,7 +62,7 @@ const App=()=>{
     <h1>{searchName==="" ? apartments.length : filteredApartments.length} apartments found</h1>
     <ApartmentList apartments={filteredApartments} onSelect={(apartment)=>setSelectedApartment(apartment)}/>
     {selectedApartment!==null && <ApartmentModal apartment={selectedApartment} onClose={()=>setSelectedApartment(null)}/>}
-    {selectedReview && <ReviewModal apartments={apartments} onClose={()=>setSelectedReview(false)} onSubmit={handleSubmitReview}/>}
+    {selectedReview && <ReviewModal apartments={apartments} setUpdatedApartment={setUpdatedApartment} onClose={()=>setSelectedReview(false)} onSubmit={handleSubmitReview}/>}
     </>
   )
 }

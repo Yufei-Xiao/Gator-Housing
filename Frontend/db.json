@@ -18,7 +18,7 @@
       "bath": 2,
       "price": 1500,
       "rating": 4.2,
-      "reviews": 2
+      "reviews": 3
     },
     {
       "id": "3",
@@ -76,17 +76,10 @@
     },
     {
       "apartment_id": "2",
-      "reviewer": "Jerry",
-      "rating": "1",
-      "comment": "Nice",
-      "id": "s-cRdAgwIbo"
-    },
-    {
-      "apartment_id": "1",
       "reviewer": "Jiahao",
-      "rating": "5",
+      "rating": "3",
       "comment": "Fire",
-      "id": "8cJQmUXyPmo"
+      "id": "xkBIAcwHqu4"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
