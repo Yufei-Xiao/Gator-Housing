@@ -1,0 +1,33 @@
+{"data": [
+  {
+    "id": 1,
+    "name": "Gator Gardens",
+    "distance": "0.5 miles",
+    "bed": 2,
+    "bath": 2,
+    "price": 1200,
+    "rating": 4.5,
+    "reviews": 34
+  },
+  {
+    "id": 2,
+    "name": "Swamp Suites",
+    "distance": "1.2 miles",
+    "bed": 3,
+    "bath": 2,
+    "price": 1500,
+    "rating": 4.2,
+    "reviews": 21
+  },
+  {
+    "id": 3,
+    "name": "Alligator Arms",
+    "distance": "0.8 miles",
+    "bed": 1,
+    "bath": 1,
+    "price": 900,
+    "rating": 4.8,
+    "reviews": 18
+  }
+]
+}
