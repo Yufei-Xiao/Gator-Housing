@@ -1,33 +1,93 @@
-{"data": [
-  {
-    "id": 1,
-    "name": "Gator Gardens",
-    "distance": "0.5 miles",
-    "bed": 2,
-    "bath": 2,
-    "price": 1200,
-    "rating": 4.5,
-    "reviews": 34
-  },
-  {
-    "id": 2,
-    "name": "Swamp Suites",
-    "distance": "1.2 miles",
-    "bed": 3,
-    "bath": 2,
-    "price": 1500,
-    "rating": 4.2,
-    "reviews": 21
-  },
-  {
-    "id": 3,
-    "name": "Alligator Arms",
-    "distance": "0.8 miles",
-    "bed": 1,
-    "bath": 1,
-    "price": 900,
-    "rating": 4.8,
-    "reviews": 18
-  }
-]
+{
+  "apartments": [
+    {
+      "id": "1",
+      "name": "Gator Gardens",
+      "distance": "0.5 miles",
+      "bed": 2,
+      "bath": 2,
+      "price": 1200,
+      "rating": 4.5,
+      "reviews": 2
+    },
+    {
+      "id": "2",
+      "name": "Swamp Suites",
+      "distance": "1.2 miles",
+      "bed": 3,
+      "bath": 2,
+      "price": 1500,
+      "rating": 4.2,
+      "reviews": 2
+    },
+    {
+      "id": "3",
+      "name": "Alligator Arms",
+      "distance": "0.8 miles",
+      "bed": 1,
+      "bath": 1,
+      "price": 900,
+      "rating": 4.8,
+      "reviews": 2
+    }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "apartment_id": 1,
+      "reviewer": "Alice",
+      "rating": 5,
+      "comment": "Great location and amenities!"
+    },
+    {
+      "id": "2",
+      "apartment_id": 1,
+      "reviewer": "Bob",
+      "rating": 4,
+      "comment": "Nice place, but parking is limited."
+    },
+    {
+      "id": "3",
+      "apartment_id": 2,
+      "reviewer": "Carol",
+      "rating": 4,
+      "comment": "Spacious rooms and friendly staff."
+    },
+    {
+      "id": "4",
+      "apartment_id": 2,
+      "reviewer": "Dave",
+      "rating": 5,
+      "comment": "Loved the pool and gym!"
+    },
+    {
+      "id": "5",
+      "apartment_id": 3,
+      "reviewer": "Eve",
+      "rating": 5,
+      "comment": "Perfect for students, very quiet."
+    },
+    {
+      "id": "6",
+      "apartment_id": 3,
+      "reviewer": "Frank",
+      "rating": 4,
+      "comment": "Affordable and close to campus."
+    },
+    {
+      "apartment_id": "2",
+      "reviewer": "Jerry",
+      "rating": "1",
+      "comment": "Nice",
+      "id": "s-cRdAgwIbo"
+    },
+    {
+      "apartment_id": "1",
+      "reviewer": "Jiahao",
+      "rating": "5",
+      "comment": "Fire",
+      "id": "8cJQmUXyPmo"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
