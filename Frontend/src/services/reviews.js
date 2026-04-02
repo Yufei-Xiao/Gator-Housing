@@ -2,6 +2,10 @@ import axios from "axios";
 
 const baseUrl = 'http://localhost:3001/reviews';
 
+const getAll=()=>{
+    return axios.get(baseUrl)
+        .then(reponse=>response.data);
+}
 const getByApartment=(apartmentId)=>{
     return axios.get(`${baseUrl}?apartment_id=${apartmentId}`)
         .then(response=>response.data);
@@ -18,4 +22,4 @@ const update=(id,newObject)=>{
         .then(response=>response.data);
 };
 
-export default {getByApartment,create,update}
+export default {getAll,getByApartment,create,update}

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import '../css/ApartmentModal.css';
-const ApartmentModal=({apartment,onClose})=>{
-    const {name,distance,bed,bath,price,rating,reviews}=apartment;
+import ReviewCard from "./ReviewCard";
+const ApartmentModal=({apartment,reviews,onClose})=>{
+    const {name,distance,bed,bath,price,rating}=apartment;
     return (
         <div className="apartment-modal">
             <button onClick={onClose}>Close</button>
@@ -10,7 +11,10 @@ const ApartmentModal=({apartment,onClose})=>{
             <p>{bed}bed/{bath}bath</p>
             <p>${price}/month</p>
             <p>{rating}</p>
-            <p>{reviews} reviews</p>
+            <p>Reviews</p>
+            {reviews.map(review=>
+                <ReviewCard key={review.id} review={review}/>
+            )}
         </div>
     
     )
