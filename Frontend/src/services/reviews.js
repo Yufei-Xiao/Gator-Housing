@@ -4,11 +4,12 @@ const baseUrl = 'http://localhost:3001/reviews';
 
 const getAll=()=>{
     return axios.get(baseUrl)
-        .then(reponse=>response.data);
+        .then(response=>response.data);
 }
 const getByApartment=(apartmentId)=>{
-    return axios.get(`${baseUrl}?apartment_id=${apartmentId}`)
-        .then(response=>response.data);
+    return axios.get(baseUrl).then(response =>
+        response.data.filter(review => review.apartment_id === apartmentId)
+    );
 };
 
 const create=(newObject)=>{

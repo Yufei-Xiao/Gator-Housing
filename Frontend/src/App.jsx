@@ -26,24 +26,37 @@ const App=()=>{
         setReviews(reviews.concat(response));
       })
       .then(()=>apartmentService.update(updatedApartment.id,{...updatedApartment,"reviews":updatedApartment.reviews+1}))
+      .then(()=>apartmentService.getAll())
+      .then((response)=>{
+        setApartments(response)
+      })
       .catch(error=>{
         console.log("Error submitting a review",error)
       })
     
   }
-  //fetching apartments and reviews
+  //fetching apartments
   useEffect(()=>{
     apartmentService.getAll()
     .then(response=>{
       setApartments(response);
     })
-    .then(()=>reviewService.getAll())
-    .then(response=>setReviews(response))
+    
     .catch(error=>{
-      console.log("Error fetching data",error)
+      console.log("Error fetching apartments",error)
     })
     
-  },[reviews])
+  },[])
+  //fetching reviews
+  useEffect(()=>{
+    reviewService.getAll()
+    .then(response=>{
+      setReviews(response)
+    })
+    .catch(error=>{
+      console.log("Error fetching reviews",error)
+    })
+  },[])
   //for filtering
   useEffect(()=>{
       let temp=apartments;
@@ -64,10 +77,12 @@ const App=()=>{
         .catch(error=>{
           console.log("Error finding an apartment",error)
         })
+        console.log("here");
+        console.log(selectedReviews)
       }else{
         setSelectedReviews([])
       }
-  },[selectedApartment,reviews])
+  },[selectedApartment])
   return (
     <>
     <Navbar setSelected={setSelectedReview}/>
