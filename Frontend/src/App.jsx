@@ -57,6 +57,7 @@ const App=()=>{
       console.log("Error fetching reviews",error)
     })
   },[])
+  
   //for filtering
   useEffect(()=>{
       let temp=apartments;
@@ -77,8 +78,7 @@ const App=()=>{
         .catch(error=>{
           console.log("Error finding an apartment",error)
         })
-        console.log("here");
-        console.log(selectedReviews)
+      
       }else{
         setSelectedReviews([])
       }

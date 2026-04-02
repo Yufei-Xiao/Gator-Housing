@@ -7,8 +7,8 @@ const getAll=()=>{
         .then(response=>response.data);
 }
 const getByApartment=(apartmentId)=>{
-    return axios.get(baseUrl).then(response =>
-        response.data.filter(review => review.apartment_id === apartmentId)
+    return axios.get(`${baseUrl}/apartment/${apartmentId}`).then(response =>
+        response.data
     );
 };
 
