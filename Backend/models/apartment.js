@@ -15,7 +15,7 @@ mongoose.connect(url, { family: 4 })
 
 const apartmentSchema = new mongoose.Schema({
   name: String,
-  distance: String,
+  address: String,
   bed: Number,
   bath: Number,
   price: Number,

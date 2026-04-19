@@ -22,6 +22,10 @@ app.put('/apartments',(request,response)=>{
   Apartment.updateOne({_id:request.body.id},{ $set: request.body})
   .then(result=>response.json(result))
 })
+app.post('/apartments',(request,response)=>{
+  Apartment.create(request.body)
+  .then(newApartment=>response.json(newApartment))
+})
 app.get('/reviews',(request,response)=>{
   Review.find({}).then(
     reviews=>{response.json(reviews)}
@@ -32,9 +36,17 @@ app.get('/reviews/apartment/:apartmentId',(request,response)=>{
     response.json(reviews)
   })
 })
-app.post('/reviews',(request,response)=>{
-  Review.create(request.body)
-  .then(newReview=>response.json(newReview))
+app.post('/reviews',async(request,response)=>{
+  const newReview=await Review.create(request.body);
+  const apartment=await Apartment.findById(newReview.apartment_id);
+  const oldrating=apartment.rating;
+  const oldreviews=apartment.reviews;
+  const newreviews=oldreviews+1;
+  const newrating=(oldrating*oldreviews+newReview.rating)/newreviews;
+  apartment.reviews = newreviews;
+  apartment.rating = newrating;
+  await apartment.save();
+  response.json(newReview);
 })
 
 

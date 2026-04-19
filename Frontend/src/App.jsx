@@ -9,6 +9,7 @@ import apartmentService from './services/apartments'
 import reviewService from './services/reviews'
 import './App.css'
 
+
 const App=()=>{
   const [apartments,setApartments]=useState([]);
   const [reviews,setReviews]=useState([]);//all reviews
@@ -17,22 +18,27 @@ const App=()=>{
   const [maxPrice,setMaxPrice]=useState(2000);
   const [filteredApartments,setFilteredApartments]=useState([]);
   const [selectedApartment,setSelectedApartment]=useState(null);// selected apartment object
-  const [updatedApartment,setUpdatedApartment]=useState({})//updated apartment object(empty at first)
   const [selectedReview,setSelectedReview]=useState(false); //submit review button pressed or not
   const [selectedReviews,setSelectedReviews]=useState([]);//reviews for the selected apartment
-  const handleSubmitReview=(newReview)=>{
-    reviewService.create(newReview)
-      .then(response=>{
-        setReviews(reviews.concat(response));
-      })
-      .then(()=>apartmentService.update(updatedApartment.id,{...updatedApartment,"reviews":updatedApartment.reviews+1}))
-      .then(()=>apartmentService.getAll())
-      .then((response)=>{
-        setApartments(response)
-      })
-      .catch(error=>{
-        console.log("Error submitting a review",error)
-      })
+  const handleSubmitReview=async(newReview,newApartment)=>{
+    try {
+      let createdApartment = null;
+      let reviewToSend=newReview;
+      if (Object.keys(newApartment).length !== 0) {
+        createdApartment = await apartmentService.create(newApartment);
+        setApartments(apartments.concat(createdApartment));
+        
+        reviewToSend.apartment_id=createdApartment.id;
+      }
+      await reviewService.create(reviewToSend)
+        .then(response => {
+          setReviews(reviews.concat(response));
+        });
+      const updatedApartments = await apartmentService.getAll();
+      setApartments(updatedApartments);
+    } catch (error) {
+      console.log("Error submitting a review", error);
+    }
     
   }
   //fetching apartments
@@ -90,7 +96,7 @@ const App=()=>{
     <h1>{searchName==="" ? apartments.length : filteredApartments.length} apartments found</h1>
     <ApartmentList apartments={filteredApartments} onSelect={(apartment)=>setSelectedApartment(apartment)}/>
     {selectedApartment!==null && <ApartmentModal apartment={selectedApartment} reviews={selectedReviews} onClose={()=>setSelectedApartment(null)}/>}
-    {selectedReview && <ReviewModal apartments={apartments} setUpdatedApartment={setUpdatedApartment} onClose={()=>setSelectedReview(false)} onSubmit={handleSubmitReview}/>}
+    {selectedReview && <ReviewModal apartments={apartments} onClose={()=>setSelectedReview(false)} onSubmit={handleSubmitReview}/>}
     </>
   )
 }

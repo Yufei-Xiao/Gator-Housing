@@ -2,12 +2,12 @@ import { useState } from "react";
 import '../css/ApartmentModal.css';
 import ReviewCard from "./ReviewCard";
 const ApartmentModal=({apartment,reviews,onClose})=>{
-    const {name,distance,bed,bath,price,rating}=apartment;
+    const {name,address,bed,bath,price,rating}=apartment;
     return (
         <div className="apartment-modal">
             <button onClick={onClose}>Close</button>
             <h2>{name}</h2>
-            <p>{distance}</p>
+            <p>{address}</p>
             <p>{bed}bed/{bath}bath</p>
             <p>${price}/month</p>
             <p>{rating}</p>
