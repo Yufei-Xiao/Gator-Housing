@@ -8,6 +8,8 @@ import ReviewModal from './components/ReviewModal'
 import apartmentService from './services/apartments'
 import reviewService from './services/reviews'
 import './App.css'
+import AddApartmentModal from './components/AddApartmentModal'
+import NewApartmentModal from './components/NewApartmentModal'
 
 
 const App=()=>{
@@ -20,6 +22,7 @@ const App=()=>{
   const [selectedApartment,setSelectedApartment]=useState(null);// selected apartment object
   const [selectedReview,setSelectedReview]=useState(false); //submit review button pressed or not
   const [selectedReviews,setSelectedReviews]=useState([]);//reviews for the selected apartment
+  const [newApartment,setNewApartment]=useState(false);
   const handleSubmitReview=async(newReview,newApartment)=>{
     try {
       let createdApartment = null;
@@ -40,6 +43,20 @@ const App=()=>{
       console.log("Error submitting a review", error);
     }
     
+  }
+  
+  const handleSubmitApartment=async(newApartment)=>{
+    try {
+      let createdApartment = null;
+      if (Object.keys(newApartment).length !== 0) {
+        createdApartment = await apartmentService.create(newApartment);
+        setApartments(apartments.concat(createdApartment));
+      }
+      const updatedApartments = await apartmentService.getAll();
+      setApartments(updatedApartments);
+    } catch (error) {
+      console.log("Error adding an apartment", error);
+    }
   }
   //fetching apartments
   useEffect(()=>{
@@ -95,6 +112,10 @@ const App=()=>{
     <Searchbar name={searchName} setName={setSearchName} bed={bedFilter} setBed={setBedFilter} price={maxPrice} setPrice={setMaxPrice} />
     <h1>{searchName==="" ? apartments.length : filteredApartments.length} apartments found</h1>
     <ApartmentList apartments={filteredApartments} onSelect={(apartment)=>setSelectedApartment(apartment)}/>
+    {filteredApartments.length===0 && (
+      <button onClick={()=>setNewApartment(true)}>Can't find it? Add a new one</button>
+    )}
+    {newApartment  && <NewApartmentModal apartments={apartments} onClose={()=>setNewApartment(false)} onSubmit={handleSubmitApartment}/>}
     {selectedApartment!==null && <ApartmentModal apartment={selectedApartment} reviews={selectedReviews} onClose={()=>setSelectedApartment(null)}/>}
     {selectedReview && <ReviewModal apartments={apartments} onClose={()=>setSelectedReview(false)} onSubmit={handleSubmitReview}/>}
     </>

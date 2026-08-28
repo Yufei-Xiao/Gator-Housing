@@ -20,7 +20,9 @@ const apartmentSchema = new mongoose.Schema({
   bath: Number,
   price: Number,
   rating: Number,
-  reviews: Number
+  reviews: {
+    type:Number,
+    default: 0}
 })
 
 apartmentSchema.set('toJSON', {
